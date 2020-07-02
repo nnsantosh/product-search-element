@@ -1,0 +1,13 @@
+<html>
+  
+  <body>
+    <app-product-search></app-product-search>
+    <script src="./angularapp.js"></script>
+    <script>
+      const component = document.querySelector('app-product-search');
+      component.addEventListener('shoppingCartDisplayEventEmitter', (event) => {
+        alert(event.detail);
+      })
+    </script>
+  </body>
+</html>

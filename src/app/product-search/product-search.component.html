@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <form #productForm="ngForm">
+
+        <div class="form-group">
+            <label>Product Name:</label>
+            <input type="text" class="form-control" id="productName" [(ngModel)]="productModel.name" name="productName"
+                #productName="ngModel">
+
+        </div>
+        <div class="inlineDiv">
+            <button class="btn btn-default" type="button" (click)="productSearch()">Search</button>
+        </div>
+        
+    </form>
+</div>
+
+<div class="container-fluid">
+    <h1>{{noresultsMatchingCriteriaMsg}}</h1>
+    <ul>
+        <li *ngFor="let product of rowData">
+            <br/>
+            <span>
+            <label>
+                <input type="checkbox" [value]="product" (change)="onCheckboxChange($event)" />
+                Select/unselect to add or remove item from cart:
+              </label>
+            </span>
+            <br/>
+          <!--   <span>Id: {{product.id}}</span><br> -->
+            <span>Name: {{product.name}}</span><br>
+            <span>Price: {{product.price}}$$</span><br>
+            <span>Seller: {{product.seller}}</span><br>
+            <span>Category: {{product.categoryName}}</span><br>
+            <!-- <span><img src="./assets/images/iphone-160307_1280.png" alt="{{product.name}}" style="width:250px;height:500px;"></span><br> -->
+            <span><img src="{{product.imagePath}}" alt="{{product.name}}" style="width:250px;height:500px;"></span><br>
+           
+           
+        </li>
+    </ul>
+    <span><button class="add-cart-button" type="button" (click)="addToCart()">Add To Cart</button></span>
+</div>
+
+<div class="inlineDiv">
+    <button class="btn btn-default" type="button" (click)="clearResults()">Clear</button>
+</div>
