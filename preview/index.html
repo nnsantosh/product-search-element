@@ -1,13 +1,34 @@
-<html>
-  
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>MicroFrontendApp</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  </head>
   <body>
-    <app-product-search></app-product-search>
-    <script src="./angularapp.js"></script>
+   <script src="./angularapp.js"></script>
+    <div id="wholeDiv" style="height:100%; width:100%;overflow: hidden;">
+    <div id="leftThing" style="float: left; width:50%; background-color:aqua">
+      <app-product-search></app-product-search>
+    </div>
+    <div id="rightThing" style="float: left; width:50%; background-color:yellow;">
+      <p>Shopping Cart:</p>
+      <p id="shoppingCartDetail"></p>
+      <button type="button" id="clearCart" onclick="clearCartDetails();">Clear Cart</button>
+    </div>
+    </div>
     <script>
       const component = document.querySelector('app-product-search');
+      //const component = document.querySelector(".container-fluid");
       component.addEventListener('shoppingCartDisplayEventEmitter', (event) => {
-        alert(event.detail);
-      })
+        //alert(event.detail);
+        document.getElementById("shoppingCartDetail").innerHTML = event.detail;
+      });
+      function clearCartDetails(){
+        document.getElementById("shoppingCartDetail").innerHTML = '';
+      }
     </script>
   </body>
 </html>

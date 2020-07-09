@@ -10,8 +10,10 @@ import { Product } from '../models/product';
 export class ProductSearchComponent implements OnInit {
 
   public errorMsg;
-  public rowData = [];
-  public selectedProducts = [];
+  public rowData : Product[] = [];
+  public selectedProducts : string[]= [];
+  public selectedProductDetails :Product[] = [];
+  public selectedProductConsolidatedDetails :string = '';
   clickMessage = '';
   public productName = '';
   public productModel = new Product();
@@ -46,7 +48,13 @@ export class ProductSearchComponent implements OnInit {
 
   addToCart(){
  // alert("selected product details:"+this.selectedProducts);
-  this.shoppingCartDisplayEventEmitter.emit(this.selectedProducts);
+  this.selectedProductDetails.forEach((detail) => {
+    //alert("detail: "+JSON.stringify(detail));
+    let productDetailString = JSON.stringify(detail);
+    this.selectedProductConsolidatedDetails = this.selectedProductConsolidatedDetails + " \n " + productDetailString;
+  });
+  this.shoppingCartDisplayEventEmitter.emit(this.selectedProductConsolidatedDetails);
+  //alert("selectedProductConsolidatedDetails: "+this.selectedProductConsolidatedDetails);
   }
 
   clearResults(){
@@ -58,17 +66,24 @@ export class ProductSearchComponent implements OnInit {
 
   onCheckboxChange(e){
     if (e.target.checked) {
-      //alert(e.target.value);
+      //alert("target value:"+e.target.value);
       this.selectedProducts.push(e.target.value);
     } else {
       //alert("unchecked");
      //remove the selected product from the list
-     const prod = e.target.value;
-     const index = this.selectedProducts.findIndex(product => product.id === prod.id);
+     const selectedProductId = e.target.value;
+     const index = this.selectedProducts.findIndex(productId => productId === selectedProductId);
      //alert(index);
      this.selectedProducts.splice(index,1);
     }
-    //alert("list:"+JSON.stringify(this.selectedProducts));
+    //alert("list: "+JSON.stringify(this.selectedProducts));
+    this.selectedProductDetails = [];
+    this.selectedProducts.forEach((productId) => {
+      let correspondingProduct = this.rowData.find(product => product.id === productId);
+      //alert("correspondingProduct: "+JSON.stringify(correspondingProduct));
+      this.selectedProductDetails.push(correspondingProduct);
+    })
+    //alert("selectedProductDetails: "+this.selectedProductDetails);
   }
 
 }

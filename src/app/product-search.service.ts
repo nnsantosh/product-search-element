@@ -27,18 +27,19 @@ export class ProductSearchService {
       ];
       return of (result1);
     }else if(name == "blackberry"){
-      let result2 = [
+      let result2 : Product[] = [
         {"creationDate":"1593003840336","lastUpdatedDate":"1593003840336","id":"3","name":"blackberry9","seller":"blackberry","imagePath":"./assets/images/smartphone-153650_1280.png","price":"299.99","categoryName":"mobile_phones"}
       ];
       return of (result2);
     }else{
-      return  of ([]);
+      let result3 : Product[] = [];
+      return  of (result3);
     }
     
   }
 
   errorHandler(error: HttpErrorResponse){
-    alert("errorHandler error: "+JSON.stringify(error));
+    //alert("errorHandler error: "+JSON.stringify(error));
     let errorMsg = "";
     if(error.message == ""){
       errorMsg = "Server Error";
@@ -48,7 +49,7 @@ export class ProductSearchService {
     }else{
       errorMsg = error.message;
     }
-    alert("errorHandler errorMsg: "+errorMsg);
+    //alert("errorHandler errorMsg: "+errorMsg);
     return throwError(errorMsg);
   }
 
