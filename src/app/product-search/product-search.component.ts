@@ -28,6 +28,10 @@ export class ProductSearchComponent implements OnInit {
  
   productSearch() {
    // alert("product name is: "+this.productModel.name);
+   this.rowData = [];
+   this.selectedProducts = [];
+   this.selectedProductDetails = [];
+   this.selectedProductConsolidatedDetails = '';
     this.productName = this.productModel.name;
     this.clickMessage = 'Wow binding!';
     if(this.productName != '' && this.productName != undefined){
@@ -48,6 +52,7 @@ export class ProductSearchComponent implements OnInit {
 
   addToCart(){
  // alert("selected product details:"+this.selectedProducts);
+  this.selectedProductConsolidatedDetails = '';
   this.selectedProductDetails.forEach((detail) => {
     //alert("detail: "+JSON.stringify(detail));
     let productDetailString = JSON.stringify(detail);
@@ -62,6 +67,8 @@ export class ProductSearchComponent implements OnInit {
     this.rowData = [];
     this.productModel.name='';
     this.selectedProducts = [];
+    this.selectedProductDetails = [];
+   this.selectedProductConsolidatedDetails = '';
   }
 
   onCheckboxChange(e){
